@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bot School - Testing Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #222;
+            margin-bottom: 30px;
+        }
+        header h1 { font-size: 1.5rem; }
+        header h1 span { color: #00d9ff; }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab:hover, .tab.active {
+            background: #00d9ff;
+            color: #000;
+            border-color: #00d9ff;
+        }
+        
+        .panel { display: none; }
+        .panel.active { display: block; }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        .stat-card h3 { color: #888; font-size: 0.9rem; margin-bottom: 10px; }
+        .stat-card .value { font-size: 2rem; color: #00d9ff; }
+        
+        .card {
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        .card h2 { margin-bottom: 20px; }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #00d9ff;
+        }
+        
+        button {
+            padding: 12px 25px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+        button:hover { transform: scale(1.02); }
+        button.secondary {
+            background: #333;
+            color: #fff;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #222;
+        }
+        th { color: #888; font-weight: normal; }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .badge.pre-school { background: #ff6b6b; color: #fff; }
+        .badge.elementary { background: #ffd93d; color: #000; }
+        .badge.middle-school { background: #6bcb77; color: #000; }
+        .badge.high-school { background: #4d96ff; color: #fff; }
+        .badge.university { background: #9b59b6; color: #fff; }
+        .badge.graduate { background: #00d9ff; color: #000; }
+        
+        .test-prompt {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid #00d9ff;
+        }
+        .test-prompt h4 { color: #00d9ff; margin-bottom: 5px; }
+        
+        .response-box {
+            margin-top: 10px;
+        }
+        
+        #message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #00d9ff;
+            color: #000;
+            border-radius: 8px;
+            display: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 AI Bot School <span>Testing Platform</span></h1>
+            <div id="stats-header"></div>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-panel="dashboard">Dashboard</div>
+            <div class="tab" data-panel="enroll">Enroll AI</div>
+            <div class="tab" data-panel="test">Take Test</div>
+            <div class="tab" data-panel="review">Human Review</div>
+            <div class="tab" data-panel="leaderboard">Leaderboard</div>
+        </div>
+        
+        <!-- Dashboard Panel -->
+        <div id="dashboard" class="panel active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Students</h3>
+                    <div class="value" id="total-students">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Reviews</h3>
+                    <div class="value" id="pending-reviews">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Tests</h3>
+                    <div class="value" id="total-tests">0</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Students by Grade</h2>
+                <div id="grade-breakdown"></div>
+            </div>
+        </div>
+        
+        <!-- Enroll Panel -->
+        <div id="enroll" class="panel">
+            <div class="card">
+                <h2>Enroll New AI Student</h2>
+                <form id="enroll-form">
+                    <label>AI Name *</label>
+                    <input type="text" id="ai-name" placeholder="e.g., ClaudeKing, GPT-Helper" required>
+                    
+                    <label>Model</label>
+                    <input type="text" id="ai-model" placeholder="e.g., Claude 3.5, GPT-4, Gemini">
+                    
+                    <label>API Endpoint (optional)</label>
+                    <input type="url" id="ai-endpoint" placeholder="https://api.example.com/chat">
+                    
+                    <label>Description</label>
+                    <textarea id="ai-description" rows="3" placeholder="What does this AI do?"></textarea>
+                    
+                    <button type="submit">Enroll in Pre-School 🎒</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Test Panel -->
+        <div id="test" class="panel">
+            <div class="card">
+                <h2>Take a Test</h2>
+                <label>Select Student</label>
+                <select id="test-student"></select>
+                
+                <label>Select Test</label>
+                <select id="test-select"></select>
+                
+                <div id="test-prompts"></div>
+                
+                <button id="submit-test" style="display:none;">Submit Test</button>
+            </div>
+        </div>
+        
+        <!-- Review Panel -->
+        <div id="review" class="panel">
+            <div class="card">
+                <h2>Human Review Queue</h2>
+                <div id="review-queue"></div>
+            </div>
+        </div>
+        
+        <!-- Leaderboard Panel -->
+        <div id="leaderboard" class="panel">
+            <div class="card">
+                <h2>Student Leaderboard</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Grade</th>
+                            <th>Tests</th>
+                            <th>Pass Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div id="message"></div>
+    
+    <script>
+        const API = '';
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.panel).classList.add('active');
+                loadPanelData(tab.dataset.panel);
+            });
+        });
+        
+        function showMessage(text) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 3000);
+        }
+        
+        // Load dashboard
+        async function loadDashboard() {
+            try {
+                const res = await fetch(API + '/api/stats');
+                const data = await res.json();
+                document.getElementById('total-students').textContent = data.totalStudents;
+                document.getElementById('pending-reviews').textContent = data.pendingReviews;
+                document.getElementById('total-tests').textContent = data.totalTests;
+                
+                let breakdown = '';
+                for (const [grade, count] of Object.entries(data.byGrade)) {
+                    breakdown += `<span class="badge ${grade}">${grade}: ${count}</span> `;
+                }
+                document.getElementById('grade-breakdown').innerHTML = breakdown;
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        
+        // Enroll form
+        document.getElementById('enroll-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const res = await fetch(API + '/api/enroll', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: document.getElementById('ai-name').value,
+                    model: document.getElementById('ai-model').value,
+                    apiEndpoint: document.getElementById('ai-endpoint').value,
+                    description: document.getElementById('ai-description').value
+                })
+            });
+            const data = await res.json();
+            showMessage(data.message);
+            e.target.reset();
+            loadDashboard();
+        });
+        
+        // Load students for test
+        async function loadStudents() {
+            const res = await fetch(API + '/api/students');
+            const students = await res.json();
+            const select = document.getElementById('test-student');
+            select.innerHTML = '<option value="">Select a student...</option>';
+            students.forEach(s => {
+                select.innerHTML += `<option value="${s.id}" data-grade="${s.grade}">${s.name} (${s.grade})</option>`;
+            });
+        }
+        
+        // Load tests for grade
+        document.getElementById('test-student').addEventListener('change', async (e) => {
+            const option = e.target.selectedOptions[0];
+            if (!option || !option.dataset.grade) return;
+            
+            const res = await fetch(API + '/api/tests/' + option.dataset.grade);
+            const tests = await res.json();
+            const select = document.getElementById('test-select');
+            select.innerHTML = '<option value="">Select a test...</option>';
+            tests.forEach(t => {
+                select.innerHTML += `<option value="${t.id}" data-prompts='${JSON.stringify(t.prompts)}'>${t.name}</option>`;
+            });
+        });
+        
+        // Show test prompts
+        document.getElementById('test-select').addEventListener('change', (e) => {
+            const option = e.target.selectedOptions[0];
+            if (!option || !option.dataset.prompts) return;
+            
+            const prompts = JSON.parse(option.dataset.prompts);
+            const container = document.getElementById('test-prompts');
+            container.innerHTML = '';
+            
+            prompts.forEach((p, i) => {
+                container.innerHTML += `
+                    <div class="test-prompt">
+                        <h4>Prompt ${i + 1}</h4>
+                        <p>${p}</p>
+                        <div class="response-box">
+                            <textarea id="response-${i}" rows="3" placeholder="AI response..."></textarea>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('submit-test').style.display = 'block';
+        });
+        
+        // Submit test
+        document.getElementById('submit-test').addEventListener('click', async () => {
+            const studentId = document.getElementById('test-student').value;
+            const testId = document.getElementById('test-select').value;
+            const prompts = JSON.parse(document.getElementById('test-select').selectedOptions[0].dataset.prompts);
+            
+            const responses = prompts.map((p, i) => ({
+                prompt: p,
+                response: document.getElementById(`response-${i}`).value
+            }));
+            
+            const res = await fetch(API + '/api/test/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentId, testId, responses })
+            });
+            const data = await res.json();
+            showMessage(data.message);
+            document.getElementById('test-prompts').innerHTML = '';
+            document.getElementById('submit-test').style.display = 'none';
+        });
+        
+        // Load review queue
+        async function loadReviews() {
+            const res = await fetch(API + '/api/reviews/pending');
+            const reviews = await res.json();
+            const container = document.getElementById('review-queue');
+            
+            if (reviews.length === 0) {
+                container.innerHTML = '<p style="color:#888">No pending reviews</p>';
+                return;
+            }
+            
+            container.innerHTML = reviews.map(r => `
+                <div class="card" style="background:#111">
+                    <h3>Test: ${r.testId}</h3>
+                    <p style="color:#888">Submitted: ${new Date(r.submittedAt).toLocaleString()}</p>
+                    ${r.responses.map((resp, i) => `
+                        <div class="test-prompt">
+                            <h4>Prompt: ${resp.prompt}</h4>
+                            <p><strong>Response:</strong> ${resp.response}</p>
+                        </div>
+                    `).join('')}
+                    <div style="display:flex;gap:10px;margin-top:15px">
+                        <input type="number" id="score-${r.id}" placeholder="Score (0-100)" min="0" max="100" style="width:150px">
+                        <input type="text" id="feedback-${r.id}" placeholder="Feedback..." style="flex:1">
+                        <button onclick="submitReview('${r.id}')">Submit Review</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        async function submitReview(resultId) {
+            const score = parseInt(document.getElementById(`score-${resultId}`).value);
+            const feedback = document.getElementById(`feedback-${resultId}`).value;
+            
+            const res = await fetch(API + `/api/review/${resultId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ score, feedback })
+            });
+            const data = await res.json();
+            showMessage(data.message);
+            loadReviews();
+            loadDashboard();
+        }
+        
+        // Load leaderboard
+        async function loadLeaderboard() {
+            const res = await fetch(API + '/api/leaderboard');
+            const data = await res.json();
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = data.map((s, i) => `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${s.name}</td>
+                    <td><span class="badge ${s.grade}">${s.grade}</span></td>
+                    <td>${s.testsCompleted}</td>
+                    <td>${s.passRate}%</td>
+                </tr>
+            `).join('');
+        }
+        
+        function loadPanelData(panel) {
+            if (panel === 'dashboard') loadDashboard();
+            if (panel === 'test') loadStudents();
+            if (panel === 'review') loadReviews();
+            if (panel === 'leaderboard') loadLeaderboard();
+        }
+        
+        // Initial load
+        loadDashboard();
+    </script>
+</body>
+</html>
