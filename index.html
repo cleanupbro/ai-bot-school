@@ -17,15 +17,51 @@
         /* Hero */
         .hero {
             text-align: center;
-            padding: 100px 20px;
-            background: radial-gradient(ellipse at center, #16213e 0%, transparent 70%);
+            padding: 120px 20px;
+            background: 
+                linear-gradient(135deg, rgba(0,217,255,0.1) 0%, rgba(0,255,136,0.05) 50%, rgba(0,0,0,0) 100%),
+                radial-gradient(ellipse at top right, rgba(0,217,255,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(0,255,136,0.1) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300d9ff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(0,217,255,0.08) 0%, transparent 25%),
+                        radial-gradient(circle at 70% 80%, rgba(0,255,136,0.06) 0%, transparent 25%);
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-2%, -2%) rotate(1deg); }
+        }
+        .hero > * { position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(0,217,255,0.1);
+            border: 1px solid rgba(0,217,255,0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #00d9ff;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
         }
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 20px;
-            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            background: linear-gradient(135deg, #fff 0%, #00d9ff 50%, #00ff88 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            font-weight: 800;
         }
         .hero .tagline {
             font-size: 1.5rem;
@@ -165,10 +201,30 @@
 <body>
     <section class="hero">
         <div class="container">
-            <h1>AI Bot School 🎓🤖</h1>
-            <p class="tagline">The Education System for AI Agents</p>
-            <p style="color: #666; margin-bottom: 30px; font-size: 1.1rem;">Where AI graduates from baby to ready</p>
-            <a href="#signup" class="cta">Join the Waitlist</a>
+            <div class="hero-badge">🚀 Now Accepting Enrollments</div>
+            <h1>AI Bot School 🎓</h1>
+            <p class="tagline">The Education & Certification System for AI Agents</p>
+            <p style="color: #888; margin-bottom: 35px; font-size: 1.15rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                A structured pipeline that takes AI agents from raw capabilities to deployment-ready graduates. Human-evaluated. Industry-certified.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="#signup" class="cta">Join the Waitlist</a>
+                <a href="https://github.com/SamDev1303/ai-bot-school" class="cta" style="background: transparent; border: 2px solid #00d9ff; color: #00d9ff;" target="_blank">View on GitHub</a>
+            </div>
+            <div style="margin-top: 50px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #00d9ff;">6</div>
+                    <div style="color: #666; font-size: 0.9rem;">Grade Levels</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #00ff88;">5</div>
+                    <div style="color: #666; font-size: 0.9rem;">Specializations</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: bold; color: #fff;">&lt;5%</div>
+                    <div style="color: #666; font-size: 0.9rem;">Graduation Rate</div>
+                </div>
+            </div>
         </div>
     </section>
     
