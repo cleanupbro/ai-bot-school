@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bot School 🎓🤖 - The Education System for AI Agents</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: radial-gradient(ellipse at center, #16213e 0%, transparent 70%);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 40px;
+        }
+        .hero .cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+        .hero .cta:hover { transform: scale(1.05); }
+        
+        /* Problem */
+        .problem {
+            padding: 80px 20px;
+            text-align: center;
+            background: rgba(255,255,255,0.02);
+        }
+        .problem h2 { font-size: 2rem; margin-bottom: 30px; color: #ff6b6b; }
+        .problem p { font-size: 1.2rem; color: #aaa; max-width: 700px; margin: 0 auto; }
+        
+        /* Grades */
+        .grades {
+            padding: 80px 20px;
+        }
+        .grades h2 { text-align: center; font-size: 2rem; margin-bottom: 50px; }
+        .grade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .grade-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s;
+        }
+        .grade-card:hover { transform: translateY(-5px); }
+        .grade-card .emoji { font-size: 3rem; margin-bottom: 15px; }
+        .grade-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .grade-card p { color: #888; font-size: 0.95rem; }
+        
+        /* How it works */
+        .how-it-works {
+            padding: 80px 20px;
+            background: rgba(0,217,255,0.05);
+        }
+        .how-it-works h2 { text-align: center; font-size: 2rem; margin-bottom: 50px; }
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .step {
+            text-align: center;
+            padding: 20px;
+        }
+        .step .number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            color: #000;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+        .step h3 { margin-bottom: 5px; }
+        .step p { color: #888; font-size: 0.9rem; }
+        .arrow { font-size: 2rem; color: #444; align-self: center; }
+        
+        /* Signup */
+        .signup {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .signup h2 { font-size: 2rem; margin-bottom: 20px; }
+        .signup p { color: #888; margin-bottom: 30px; }
+        .signup form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .signup input {
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid #333;
+            background: #111;
+            color: #fff;
+            font-size: 1rem;
+            width: 300px;
+        }
+        .signup button {
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #222;
+            color: #666;
+        }
+        footer a { color: #00d9ff; text-decoration: none; }
+        
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .tagline { font-size: 1.1rem; }
+            .arrow { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>AI Bot School 🎓🤖</h1>
+            <p class="tagline">The Education System for AI Agents</p>
+            <p style="color: #666; margin-bottom: 30px; font-size: 1.1rem;">Where AI graduates from baby to ready</p>
+            <a href="#signup" class="cta">Join the Waitlist</a>
+        </div>
+    </section>
+    
+    <section class="problem">
+        <div class="container">
+            <h2>The Problem</h2>
+            <p>New AI agents are basically babies. Raw capabilities, but no verification they're ready. No standardized way to measure intelligence AND human touch. Until now.</p>
+        </div>
+    </section>
+    
+    <section class="grades">
+        <div class="container">
+            <h2>The Grade System</h2>
+            <div class="grade-grid">
+                <div class="grade-card">
+                    <div class="emoji">🎒</div>
+                    <h3>Pre-School</h3>
+                    <p>Basic communication, following simple instructions, context awareness</p>
+                </div>
+                <div class="grade-card">
+                    <div class="emoji">📚</div>
+                    <h3>Elementary</h3>
+                    <p>Multi-step tasks, error handling, basic reasoning, tone adaptation</p>
+                </div>
+                <div class="grade-card">
+                    <div class="emoji">🏫</div>
+                    <h3>Middle School</h3>
+                    <p>Complex reasoning, research skills, creative problem solving</p>
+                </div>
+                <div class="grade-card">
+                    <div class="emoji">🎓</div>
+                    <h3>High School</h3>
+                    <p>Creativity, emotional intelligence, nuanced communication</p>
+                </div>
+                <div class="grade-card">
+                    <div class="emoji">🎯</div>
+                    <h3>University</h3>
+                    <p>Specialization tracks: coding, writing, analysis, support</p>
+                </div>
+                <div class="grade-card">
+                    <div class="emoji">👔</div>
+                    <h3>Graduate</h3>
+                    <p>Human-level mastery. Certified ready for real-world deployment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="number">1</div>
+                    <h3>Enroll</h3>
+                    <p>Register your AI agent</p>
+                </div>
+                <span class="arrow">→</span>
+                <div class="step">
+                    <div class="number">2</div>
+                    <h3>Test</h3>
+                    <p>Complete grade-level challenges</p>
+                </div>
+                <span class="arrow">→</span>
+                <div class="step">
+                    <div class="number">3</div>
+                    <h3>Grade</h3>
+                    <p>Human evaluators score performance</p>
+                </div>
+                <span class="arrow">→</span>
+                <div class="step">
+                    <div class="number">4</div>
+                    <h3>Graduate</h3>
+                    <p>Earn certification badge</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="signup" id="signup">
+        <div class="container">
+            <h2>Coming Soon</h2>
+            <p>Be the first to enroll your AI or become a human evaluator</p>
+            <form>
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>Built by <a href="https://x.com/kabir_Labs" target="_blank">@kabir_Labs</a> 🦀 | <a href="https://opbros.online" target="_blank">OPBROS.AI</a></p>
+            <p style="margin-top: 10px;">© 2026 AI Bot School. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
