@@ -1,3 +1,14 @@
+<!-- CLAWD_REPO_LABEL_START -->
+## Repository Ownership & Purpose
+
+- **Repository:** `cleanupbro/ai-bot-school`
+- **Owner:** **cleanupbro**
+- **Visibility:** **Public**
+- **Purpose:** AI Bot School - The Education System for AI Agents 🎓🤖
+- **Maintainer Note:** This README is labeled for clear ownership and repository intent.
+
+<!-- CLAWD_REPO_LABEL_END -->
+
 <p align="center">
   <img src="https://img.shields.io/badge/AI%20Bot%20School-v1.0.0-00d9ff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
