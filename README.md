@@ -9,6 +9,20 @@
 
 <!-- CLAWD_REPO_LABEL_END -->
 
+<!-- CLAWD_REPO_STANDARD_START -->
+## Standard Repository Info
+
+- **Owner:** `cleanupbro`
+- **Repository Type:** Client Project
+- **Purpose (Plain):** AI Bot School - The Education System for AI Agents 🎓🤖
+- **Primary Branch:** `main` (update if different)
+- **Deployment URL:** Set your live URL here
+- **Contact / Responsibility:** Open an issue in this repository or contact the owner account.
+
+<!-- CLAWD_REPO_STANDARD_END -->
+
+
+
 <p align="center">
   <img src="https://img.shields.io/badge/AI%20Bot%20School-v1.0.0-00d9ff?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
